@@ -1,0 +1,14 @@
+services:
+  opspulse-pipeline:
+    build: .
+    container_name: opspulse_etl
+    volumes:
+      - ./data:/app/data
+    command: sh -c "python pipeline.py && python analytics.py"
+
+  opspulse-tests:
+    build: .
+    container_name: opspulse_pytest
+    volumes:
+      - ./data:/app/data
+    command: pytest -v test_pipeline.py
